@@ -55,16 +55,20 @@ The custom kernel module logs all resource-related activities, viewable via dmes
 ### Compile the project
 ```bash
 cd boilerplate
-make```
+make
+```
 ###Load the monitoring module
-```Bash
-sudo insmod monitor.ko```
+```bash
+sudo insmod monitor.ko
+```
 ###Start Supervisor (Terminal 1)
-```Bash
-sudo ./engine supervisor ./rootfs-base```
+```bash
+sudo ./engine supervisor ./rootfs-base
+```
 ###Start a Container (Terminal 2)
-```Bash
-sudo ./engine start alpha ./rootfs-alpha "ls -l" ```
+```bash
+sudo ./engine start alpha ./rootfs-alpha "ls -l"
+```
 **Developers**
-**Dhanya KM-** https://github.com/Dhanya-KM
-**Nidhi.R-**https://github.com/nidhiravi2006-lab
+**Dhanya KM-** 
+**Nidhi.R-**
