@@ -37,7 +37,7 @@ Demonstrating the ability to launch and manage multiple containers simultaneousl
 Real-time tracking of container statuses (ID, PID, and Status) using the engine ps command. Metadata verification ensures the supervisor and engine are in sync.
 
 ### 5. Kernel Monitoring Logs
-![Kernel Logs](images/05_Metadata_Management.png)
+![Kernel Logs](images/05_Metadata%20_Management.png)
 The custom kernel module logs all resource-related activities, viewable via dmesg. Logs show container_monitor being loaded and tracking processes.
 
 ---
@@ -57,18 +57,19 @@ The custom kernel module logs all resource-related activities, viewable via dmes
 cd boilerplate
 make
 ```
-###Load the monitoring module
+### Load the monitoring module
 ```bash
 sudo insmod monitor.ko
 ```
-###Start Supervisor (Terminal 1)
+### Start Supervisor (Terminal 1)
 ```bash
 sudo ./engine supervisor ./rootfs-base
 ```
-###Start a Container (Terminal 2)
+### Start a Container (Terminal 2)
 ```bash
 sudo ./engine start alpha ./rootfs-alpha "ls -l"
 ```
 **Developers**
-**Dhanya KM-** 
-**Nidhi.R-**
+**Dhanya.K.M** 
+
+**Nidhi.R**
