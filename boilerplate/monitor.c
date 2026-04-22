@@ -148,14 +148,14 @@ static void timer_callback(struct timer_list *t)
     list_for_each_entry_safe(node, tmp, &monitored_list, list) {
         current_rss = get_rss_bytes(node->pid);
 
-        // Remove if process is gone
+        /* Remove if process is gone */
         if (current_rss < 0) {
             list_del(&node->list);
             kfree(node);
             continue;
         }
 
-        // Check hard limit
+        /* Check hard limit */
         if (current_rss > node->hard_limit) {
             kill_process(node->container_id, node->pid, node->hard_limit, current_rss);
             list_del(&node->list);
@@ -163,7 +163,7 @@ static void timer_callback(struct timer_list *t)
             continue;
         }
 
-        // Check soft limit
+        /* Check soft limit */
         if (current_rss > node->soft_limit && !node->soft_warning_emitted) {
             log_soft_limit_event(node->container_id, node->pid, node->soft_limit, current_rss);
             node->soft_warning_emitted = true;
@@ -279,16 +279,19 @@ static int __init monitor_init(void)
 /* --- Provided: Module Exit --- */
 static void __exit monitor_exit(void)
 {
-    /* * IMPORTANT FIX for Kernel 6.17: 
-     * Use timer_shutdown_sync instead of del_timer_sync 
+    /* FIX: Declarations moved to the top of the function to avoid
+     * mixing declarations and statements, which is invalid in C89/C90
+     * and may cause warnings or errors under strict kernel build configs. */
+    struct container_node *node, *tmp;
+
+    /* * IMPORTANT FIX for Kernel 6.17:
+     * Use timer_shutdown_sync instead of del_timer_sync
      */
     timer_shutdown_sync(&monitor_timer);
 
     /* ==============================================================
      * TODO 6: Free all remaining monitored entries.
      * ============================================================== */
-    struct container_node *node, *tmp;
-
     mutex_lock(&list_lock);
     list_for_each_entry_safe(node, tmp, &monitored_list, list) {
         list_del(&node->list);
@@ -308,4 +311,5 @@ module_init(monitor_init);
 module_exit(monitor_exit);
 
 MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Dhanya K.M., Nidhi R.");
 MODULE_DESCRIPTION("Supervised multi-container memory monitor");
